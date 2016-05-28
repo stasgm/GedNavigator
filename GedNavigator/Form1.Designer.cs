@@ -30,25 +30,36 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDisconnect = new System.Windows.Forms.Button();
+            this.btnSelectDB = new System.Windows.Forms.Button();
+            this.btnConnect = new System.Windows.Forms.Button();
+            this.tbDatabase = new System.Windows.Forms.TextBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbServer = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbPort = new System.Windows.Forms.TextBox();
-            this.tbDatabase = new System.Windows.Forms.TextBox();
-            this.btnSelectDB = new System.Windows.Forms.Button();
-            this.btnConnect = new System.Windows.Forms.Button();
-            this.btnDisconnect = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.slbInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.numPort = new System.Windows.Forms.NumericUpDown();
+            this.cbTables = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnGet = new System.Windows.Forms.Button();
+            this.dgvTableView = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableView)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.numPort);
             this.groupBox1.Controls.Add(this.btnDisconnect);
-            this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Controls.Add(this.btnSelectDB);
+            this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Controls.Add(this.tbDatabase);
-            this.groupBox1.Controls.Add(this.tbPort);
+            this.groupBox1.Controls.Add(this.btnRefresh);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
@@ -60,53 +71,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connection";
             // 
-            // label2
+            // btnDisconnect
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 49);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Database";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Server:";
-            // 
-            // tbServer
-            // 
-            this.tbServer.Location = new System.Drawing.Point(67, 20);
-            this.tbServer.Name = "tbServer";
-            this.tbServer.Size = new System.Drawing.Size(147, 20);
-            this.tbServer.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(231, 24);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Port";
-            // 
-            // tbPort
-            // 
-            this.tbPort.Location = new System.Drawing.Point(274, 20);
-            this.tbPort.Name = "tbPort";
-            this.tbPort.Size = new System.Drawing.Size(84, 20);
-            this.tbPort.TabIndex = 4;
-            // 
-            // tbDatabase
-            // 
-            this.tbDatabase.Location = new System.Drawing.Point(67, 45);
-            this.tbDatabase.Name = "tbDatabase";
-            this.tbDatabase.Size = new System.Drawing.Size(264, 20);
-            this.tbDatabase.TabIndex = 5;
+            this.btnDisconnect.Location = new System.Drawing.Point(149, 71);
+            this.btnDisconnect.Name = "btnDisconnect";
+            this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
+            this.btnDisconnect.TabIndex = 11;
+            this.btnDisconnect.Text = "Disconnect";
+            this.btnDisconnect.UseVisualStyleBackColor = true;
             // 
             // btnSelectDB
             // 
@@ -120,36 +92,159 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(67, 72);
+            this.btnConnect.Location = new System.Drawing.Point(67, 71);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 23);
-            this.btnConnect.TabIndex = 7;
+            this.btnConnect.TabIndex = 10;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
-            // btnDisconnect
+            // tbDatabase
             // 
-            this.btnDisconnect.Location = new System.Drawing.Point(149, 72);
-            this.btnDisconnect.Name = "btnDisconnect";
-            this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
-            this.btnDisconnect.TabIndex = 8;
-            this.btnDisconnect.Text = "Disconnect";
-            this.btnDisconnect.UseVisualStyleBackColor = true;
+            this.tbDatabase.Location = new System.Drawing.Point(67, 45);
+            this.tbDatabase.Name = "tbDatabase";
+            this.tbDatabase.Size = new System.Drawing.Size(264, 20);
+            this.tbDatabase.TabIndex = 5;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Enabled = false;
+            this.btnRefresh.Location = new System.Drawing.Point(284, 71);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 12;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(231, 24);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Port";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 49);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Database:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Server:";
+            // 
+            // tbServer
+            // 
+            this.tbServer.Location = new System.Drawing.Point(67, 20);
+            this.tbServer.Name = "tbServer";
+            this.tbServer.Size = new System.Drawing.Size(147, 20);
+            this.tbServer.TabIndex = 0;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.slbInfo});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 414);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(398, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // slbInfo
+            // 
+            this.slbInfo.Name = "slbInfo";
+            this.slbInfo.Size = new System.Drawing.Size(0, 17);
+            // 
+            // numPort
+            // 
+            this.numPort.Location = new System.Drawing.Point(275, 20);
+            this.numPort.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.numPort.Name = "numPort";
+            this.numPort.Size = new System.Drawing.Size(84, 20);
+            this.numPort.TabIndex = 2;
+            // 
+            // cbTables
+            // 
+            this.cbTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTables.FormattingEnabled = true;
+            this.cbTables.Location = new System.Drawing.Point(80, 126);
+            this.cbTables.Name = "cbTables";
+            this.cbTables.Size = new System.Drawing.Size(211, 21);
+            this.cbTables.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(24, 130);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(49, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Tablelist:";
+            // 
+            // btnGet
+            // 
+            this.btnGet.Location = new System.Drawing.Point(297, 125);
+            this.btnGet.Name = "btnGet";
+            this.btnGet.Size = new System.Drawing.Size(75, 23);
+            this.btnGet.TabIndex = 4;
+            this.btnGet.Text = "Get";
+            this.btnGet.UseVisualStyleBackColor = true;
+            this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
+            // 
+            // dgvTableView
+            // 
+            this.dgvTableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTableView.ColumnHeadersVisible = false;
+            this.dgvTableView.Location = new System.Drawing.Point(27, 153);
+            this.dgvTableView.Name = "dgvTableView";
+            this.dgvTableView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTableView.ShowEditingIcon = false;
+            this.dgvTableView.Size = new System.Drawing.Size(345, 258);
+            this.dgvTableView.TabIndex = 5;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 322);
+            this.ClientSize = new System.Drawing.Size(398, 436);
+            this.Controls.Add(this.dgvTableView);
+            this.Controls.Add(this.btnGet);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cbTables);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "Form1";
+            this.Text = "Gedemin Navigator";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTableView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -161,10 +256,17 @@
         private System.Windows.Forms.TextBox tbServer;
         private System.Windows.Forms.Button btnSelectDB;
         private System.Windows.Forms.TextBox tbDatabase;
-        private System.Windows.Forms.TextBox tbPort;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel slbInfo;
+        private System.Windows.Forms.NumericUpDown numPort;
+        private System.Windows.Forms.ComboBox cbTables;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnGet;
+        private System.Windows.Forms.DataGridView dgvTableView;
     }
 }
 
