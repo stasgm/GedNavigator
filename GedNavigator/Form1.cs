@@ -58,7 +58,6 @@ namespace GedNavigator
 
                 slbInfo.Text = "Connected. Info: " + fb_inf.ServerClass + "; " + fb_inf.ServerVersion;
                 btnRefresh.Enabled = true;
-                //пока у объекта БД не был вызван метод Open() - никакой информации о БД не получить, будет только ошибка             
             }
             catch (Exception ex)
             {
@@ -88,10 +87,8 @@ namespace GedNavigator
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            string sqlQry = "select RDB$RELATION_NAME NAME FROM RDB$RELATIONS WHERE RDB$SYSTEM_FLAG <> 1 ORDER BY 1";
+            string sqlQry = "SELECT RDB$RELATION_NAME NAME FROM RDB$RELATIONS WHERE RDB$SYSTEM_FLAG <> 1 ORDER BY 1";
 
-            //FbCommand SelectSQL = new FbCommand(sqlQry, fb);
-            //FbDataReader reader = SelectSQL.ExecuteReader();
             using (FbDataReader reader = new FbCommand(sqlQry, fb).ExecuteReader())
             {
 
@@ -116,16 +113,36 @@ namespace GedNavigator
 
         private void btnGet_Click(object sender, EventArgs e)
         {
-            if (cbTables.Text == "") return;
+            if (tbSqlQry.Text == "") return;
 
-            String sqlQry;
-            sqlQry = "SELECT * FROM " + cbTables.Text;
-            FbDataAdapter da = new FbDataAdapter(sqlQry, fb);
+            FbDataAdapter da = new FbDataAdapter(tbSqlQry.Text, fb);
             DataSet ds = new DataSet();
-            da.Fill(ds, cbTables.Text);
+            try
+            {
+                da.Fill(ds);
+                dgvTableView.DataSource = ds.Tables[0];
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
 
-            //dgvTableView.Rows.Clear();
-            dgvTableView.DataSource = ds.Tables[cbTables.Text];
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            if (cbTables.Text == "") return;
+            tbSqlQry.Text = "SELECT * FROM " + cbTables.Text;
+        }
+
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            if (fb.State == ConnectionState.Open)
+            {
+                fb.Close();
+                slbInfo.Text = "Connected closed";
+                btnRefresh.Enabled = false;
+            }
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numPort = new System.Windows.Forms.NumericUpDown();
             this.btnDisconnect = new System.Windows.Forms.Button();
             this.btnSelectDB = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
@@ -41,14 +42,15 @@
             this.tbServer = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.slbInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.numPort = new System.Windows.Forms.NumericUpDown();
             this.cbTables = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnGet = new System.Windows.Forms.Button();
             this.dgvTableView = new System.Windows.Forms.DataGridView();
+            this.tbSqlQry = new System.Windows.Forms.TextBox();
+            this.btnSelect = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +61,6 @@
             this.groupBox1.Controls.Add(this.btnSelectDB);
             this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Controls.Add(this.tbDatabase);
-            this.groupBox1.Controls.Add(this.btnRefresh);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
@@ -71,14 +72,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connection";
             // 
+            // numPort
+            // 
+            this.numPort.Location = new System.Drawing.Point(275, 20);
+            this.numPort.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
+            this.numPort.Name = "numPort";
+            this.numPort.Size = new System.Drawing.Size(84, 20);
+            this.numPort.TabIndex = 2;
+            // 
             // btnDisconnect
             // 
-            this.btnDisconnect.Location = new System.Drawing.Point(149, 71);
+            this.btnDisconnect.Location = new System.Drawing.Point(284, 71);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
             this.btnDisconnect.TabIndex = 11;
             this.btnDisconnect.Text = "Disconnect";
             this.btnDisconnect.UseVisualStyleBackColor = true;
+            this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
             // 
             // btnSelectDB
             // 
@@ -110,7 +124,7 @@
             // btnRefresh
             // 
             this.btnRefresh.Enabled = false;
-            this.btnRefresh.Location = new System.Drawing.Point(284, 71);
+            this.btnRefresh.Location = new System.Drawing.Point(297, 126);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 12;
@@ -167,25 +181,13 @@
             this.slbInfo.Name = "slbInfo";
             this.slbInfo.Size = new System.Drawing.Size(0, 17);
             // 
-            // numPort
-            // 
-            this.numPort.Location = new System.Drawing.Point(275, 20);
-            this.numPort.Maximum = new decimal(new int[] {
-            4000,
-            0,
-            0,
-            0});
-            this.numPort.Name = "numPort";
-            this.numPort.Size = new System.Drawing.Size(84, 20);
-            this.numPort.TabIndex = 2;
-            // 
             // cbTables
             // 
             this.cbTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTables.FormattingEnabled = true;
-            this.cbTables.Location = new System.Drawing.Point(80, 126);
+            this.cbTables.Location = new System.Drawing.Point(67, 127);
             this.cbTables.Name = "cbTables";
-            this.cbTables.Size = new System.Drawing.Size(211, 21);
+            this.cbTables.Size = new System.Drawing.Size(147, 21);
             this.cbTables.TabIndex = 2;
             // 
             // label4
@@ -193,39 +195,60 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(24, 130);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 13);
+            this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Tablelist:";
+            this.label4.Text = "Table:";
             // 
             // btnGet
             // 
-            this.btnGet.Location = new System.Drawing.Point(297, 125);
+            this.btnGet.Location = new System.Drawing.Point(297, 247);
             this.btnGet.Name = "btnGet";
             this.btnGet.Size = new System.Drawing.Size(75, 23);
             this.btnGet.TabIndex = 4;
-            this.btnGet.Text = "Get";
+            this.btnGet.Text = "Execute";
             this.btnGet.UseVisualStyleBackColor = true;
             this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
             // 
             // dgvTableView
             // 
             this.dgvTableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTableView.ColumnHeadersVisible = false;
-            this.dgvTableView.Location = new System.Drawing.Point(27, 153);
+            this.dgvTableView.Location = new System.Drawing.Point(27, 276);
             this.dgvTableView.Name = "dgvTableView";
+            this.dgvTableView.RowHeadersVisible = false;
             this.dgvTableView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvTableView.ShowEditingIcon = false;
-            this.dgvTableView.Size = new System.Drawing.Size(345, 258);
+            this.dgvTableView.Size = new System.Drawing.Size(345, 135);
             this.dgvTableView.TabIndex = 5;
+            // 
+            // tbSqlQry
+            // 
+            this.tbSqlQry.Location = new System.Drawing.Point(27, 156);
+            this.tbSqlQry.Multiline = true;
+            this.tbSqlQry.Name = "tbSqlQry";
+            this.tbSqlQry.Size = new System.Drawing.Size(345, 85);
+            this.tbSqlQry.TabIndex = 6;
+            // 
+            // btnSelect
+            // 
+            this.btnSelect.Location = new System.Drawing.Point(220, 126);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(75, 23);
+            this.btnSelect.TabIndex = 7;
+            this.btnSelect.Text = "Select";
+            this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(398, 436);
+            this.Controls.Add(this.btnSelect);
+            this.Controls.Add(this.tbSqlQry);
             this.Controls.Add(this.dgvTableView);
             this.Controls.Add(this.btnGet);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.cbTables);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
@@ -239,9 +262,9 @@
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPort)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTableView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -267,6 +290,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnGet;
         private System.Windows.Forms.DataGridView dgvTableView;
+        private System.Windows.Forms.TextBox tbSqlQry;
+        private System.Windows.Forms.Button btnSelect;
     }
 }
 
