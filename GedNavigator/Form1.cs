@@ -38,13 +38,23 @@ namespace GedNavigator
             fb_con.Charset = "WIN1251"; //используемая кодировка
             fb_con.UserID = "SYSDBA"; //логин
             fb_con.Password = "masterkey"; //пароль
-            fb_con.Database = tbDatabase.Text; 
-            fb_con.Port = (int) numPort.Value; 
-            fb_con.DataSource = tbServer.Text; 
+            fb_con.Database = tbDatabase.Text;
             fb_con.Dialect = 3;
-            fb_con.ServerType = FbServerType.Default; //указываем тип сервера (0 - "полноценный Firebird" (classic или super server), 1 - встроенный (embedded))
+            //указываем тип сервера (0 - "полноценный Firebird" (classic или super server), 1 - встроенный (embedded))
+            switch (cbServerType.SelectedIndex)
+            {
+                case 0:
+                    //fb_con.ServerType = FbServerType.Default;
+                    fb_con.Port = (int)numPort.Value;
+                    fb_con.DataSource = tbServer.Text;
+                    break;
+                case 1:
+                    fb_con.ServerType = FbServerType.Embedded;
+                    break;
 
-            if (fb_con.Database == "" | fb_con.DataSource == ""){
+            }
+            
+            if (fb_con.Database == "" & (fb_con.DataSource == "" | cbServerType.SelectedIndex == 0)){
                 MessageBox.Show(this, "Неверные данные.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -74,7 +84,7 @@ namespace GedNavigator
             if (numPort.Value == 0) {
                 numPort.Value = 3050;
             }
-            tbDatabase.Text = Properties.Settings.Default.Database;            
+            tbDatabase.Text = Properties.Settings.Default.Database;
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -143,6 +153,23 @@ namespace GedNavigator
                 slbInfo.Text = "Connected closed";
                 btnRefresh.Enabled = false;
             }
+        }
+
+        private void cbServerType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool isDefaultSrv = false;
+
+            ComboBox senderComboBox = (ComboBox)sender;
+            switch(senderComboBox.SelectedIndex){
+                case 0:
+                    isDefaultSrv = true;
+                    break;
+                case 1:
+                    isDefaultSrv = false;
+                    break;
+            }
+            tbServer.Enabled = isDefaultSrv;
+            numPort.Enabled = isDefaultSrv;
         }
     }
 }

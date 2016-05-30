@@ -35,11 +35,11 @@
             this.btnSelectDB = new System.Windows.Forms.Button();
             this.btnConnect = new System.Windows.Forms.Button();
             this.tbDatabase = new System.Windows.Forms.TextBox();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbServer = new System.Windows.Forms.TextBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.slbInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.cbTables = new System.Windows.Forms.ComboBox();
@@ -48,6 +48,7 @@
             this.dgvTableView = new System.Windows.Forms.DataGridView();
             this.tbSqlQry = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
+            this.cbServerType = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -56,6 +57,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbServerType);
             this.groupBox1.Controls.Add(this.numPort);
             this.groupBox1.Controls.Add(this.btnDisconnect);
             this.groupBox1.Controls.Add(this.btnSelectDB);
@@ -74,14 +76,14 @@
             // 
             // numPort
             // 
-            this.numPort.Location = new System.Drawing.Point(275, 20);
+            this.numPort.Location = new System.Drawing.Point(302, 20);
             this.numPort.Maximum = new decimal(new int[] {
             4000,
             0,
             0,
             0});
             this.numPort.Name = "numPort";
-            this.numPort.Size = new System.Drawing.Size(84, 20);
+            this.numPort.Size = new System.Drawing.Size(57, 20);
             this.numPort.TabIndex = 2;
             // 
             // btnDisconnect
@@ -121,21 +123,10 @@
             this.tbDatabase.Size = new System.Drawing.Size(264, 20);
             this.tbDatabase.TabIndex = 5;
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Enabled = false;
-            this.btnRefresh.Location = new System.Drawing.Point(297, 126);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 12;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(231, 24);
+            this.label3.Location = new System.Drawing.Point(270, 24);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 3;
@@ -161,10 +152,21 @@
             // 
             // tbServer
             // 
-            this.tbServer.Location = new System.Drawing.Point(67, 20);
+            this.tbServer.Location = new System.Drawing.Point(148, 21);
             this.tbServer.Name = "tbServer";
-            this.tbServer.Size = new System.Drawing.Size(147, 20);
+            this.tbServer.Size = new System.Drawing.Size(116, 20);
             this.tbServer.TabIndex = 0;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Enabled = false;
+            this.btnRefresh.Location = new System.Drawing.Point(297, 126);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 12;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // statusStrip1
             // 
@@ -183,7 +185,6 @@
             // 
             // cbTables
             // 
-            this.cbTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTables.FormattingEnabled = true;
             this.cbTables.Location = new System.Drawing.Point(67, 127);
             this.cbTables.Name = "cbTables";
@@ -237,6 +238,19 @@
             this.btnSelect.Text = "Select";
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+            // 
+            // cbServerType
+            // 
+            this.cbServerType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbServerType.FormattingEnabled = true;
+            this.cbServerType.Items.AddRange(new object[] {
+            "Default",
+            "Embedded"});
+            this.cbServerType.Location = new System.Drawing.Point(67, 20);
+            this.cbServerType.Name = "cbServerType";
+            this.cbServerType.Size = new System.Drawing.Size(75, 21);
+            this.cbServerType.TabIndex = 12;
+            this.cbServerType.SelectedIndexChanged += new System.EventHandler(this.cbServerType_SelectedIndexChanged);
             // 
             // frmMain
             // 
@@ -292,6 +306,7 @@
         private System.Windows.Forms.DataGridView dgvTableView;
         private System.Windows.Forms.TextBox tbSqlQry;
         private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.ComboBox cbServerType;
     }
 }
 
