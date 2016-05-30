@@ -18,6 +18,7 @@ namespace GedNavigator
         public frmMain()
         {
             InitializeComponent();
+            cbServerType.SelectedIndex = 0;
         }
 
         private void btnSelectDB_Click(object sender, EventArgs e)
@@ -31,8 +32,34 @@ namespace GedNavigator
 
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+    public void RefreshTableList()
+    {
+        string sqlQry = "SELECT RDB$RELATION_NAME NAME FROM RDB$RELATIONS WHERE RDB$SYSTEM_FLAG <> 1 ORDER BY 1";
+
+        using (FbDataReader reader = new FbCommand(sqlQry, fb).ExecuteReader())
         {
+
+            try
+            {
+                while (reader.Read()) //пока не прочли все данные выполняем...
+                {
+                    cbTables.Items.Add(reader.GetString(0).Trim(' '));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            finally
+            {
+                reader.Close();
+            }
+        }
+    } 
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {            
             //формируем connection string для последующего соединения с нашей базой данных
             FbConnectionStringBuilder fb_con = new FbConnectionStringBuilder();
             fb_con.Charset = "WIN1251"; //используемая кодировка
@@ -67,7 +94,7 @@ namespace GedNavigator
                 FbDatabaseInfo fb_inf = new FbDatabaseInfo(fb); //информация о БД
 
                 slbInfo.Text = "Connected. Info: " + fb_inf.ServerClass + "; " + fb_inf.ServerVersion;
-                btnRefresh.Enabled = true;
+                RefreshTableList();
             }
             catch (Exception ex)
             {
@@ -95,31 +122,6 @@ namespace GedNavigator
             Properties.Settings.Default.Save();
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            string sqlQry = "SELECT RDB$RELATION_NAME NAME FROM RDB$RELATIONS WHERE RDB$SYSTEM_FLAG <> 1 ORDER BY 1";
-
-            using (FbDataReader reader = new FbCommand(sqlQry, fb).ExecuteReader())
-            {
-
-                try
-                {
-                    while (reader.Read()) //пока не прочли все данные выполняем...
-                    {
-                        cbTables.Items.Add(reader.GetString(0).Trim(' '));
-                    }
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(this, ex.Message, "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                finally
-                {
-                    reader.Close();
-                }
-            }
-        }
 
         private void btnGet_Click(object sender, EventArgs e)
         {
@@ -151,7 +153,6 @@ namespace GedNavigator
             {
                 fb.Close();
                 slbInfo.Text = "Connected closed";
-                btnRefresh.Enabled = false;
             }
         }
 
