@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbServerType = new System.Windows.Forms.ComboBox();
             this.numPort = new System.Windows.Forms.NumericUpDown();
             this.btnDisconnect = new System.Windows.Forms.Button();
             this.btnSelectDB = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbServer = new System.Windows.Forms.TextBox();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.slbInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.cbTables = new System.Windows.Forms.ComboBox();
@@ -48,7 +48,6 @@
             this.dgvTableView = new System.Windows.Forms.DataGridView();
             this.tbSqlQry = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
-            this.cbServerType = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -74,6 +73,19 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Connection";
             // 
+            // cbServerType
+            // 
+            this.cbServerType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbServerType.FormattingEnabled = true;
+            this.cbServerType.Items.AddRange(new object[] {
+            "Default",
+            "Embedded"});
+            this.cbServerType.Location = new System.Drawing.Point(67, 20);
+            this.cbServerType.Name = "cbServerType";
+            this.cbServerType.Size = new System.Drawing.Size(75, 21);
+            this.cbServerType.TabIndex = 12;
+            this.cbServerType.SelectedIndexChanged += new System.EventHandler(this.cbServerType_SelectedIndexChanged);
+            // 
             // numPort
             // 
             this.numPort.Location = new System.Drawing.Point(302, 20);
@@ -88,7 +100,7 @@
             // 
             // btnDisconnect
             // 
-            this.btnDisconnect.Location = new System.Drawing.Point(284, 71);
+            this.btnDisconnect.Location = new System.Drawing.Point(148, 71);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
             this.btnDisconnect.TabIndex = 11;
@@ -157,17 +169,6 @@
             this.tbServer.Size = new System.Drawing.Size(116, 20);
             this.tbServer.TabIndex = 0;
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Enabled = false;
-            this.btnRefresh.Location = new System.Drawing.Point(297, 126);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 12;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -188,7 +189,7 @@
             this.cbTables.FormattingEnabled = true;
             this.cbTables.Location = new System.Drawing.Point(67, 127);
             this.cbTables.Name = "cbTables";
-            this.cbTables.Size = new System.Drawing.Size(147, 21);
+            this.cbTables.Size = new System.Drawing.Size(224, 21);
             this.cbTables.TabIndex = 2;
             // 
             // label4
@@ -231,26 +232,13 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.Location = new System.Drawing.Point(220, 126);
+            this.btnSelect.Location = new System.Drawing.Point(297, 127);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(75, 23);
             this.btnSelect.TabIndex = 7;
-            this.btnSelect.Text = "Select";
+            this.btnSelect.Text = "Add";
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
-            // 
-            // cbServerType
-            // 
-            this.cbServerType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbServerType.FormattingEnabled = true;
-            this.cbServerType.Items.AddRange(new object[] {
-            "Default",
-            "Embedded"});
-            this.cbServerType.Location = new System.Drawing.Point(67, 20);
-            this.cbServerType.Name = "cbServerType";
-            this.cbServerType.Size = new System.Drawing.Size(75, 21);
-            this.cbServerType.TabIndex = 12;
-            this.cbServerType.SelectedIndexChanged += new System.EventHandler(this.cbServerType_SelectedIndexChanged);
             // 
             // frmMain
             // 
@@ -262,7 +250,6 @@
             this.Controls.Add(this.dgvTableView);
             this.Controls.Add(this.btnGet);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.cbTables);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox1);
@@ -296,7 +283,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnDisconnect;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel slbInfo;
         private System.Windows.Forms.NumericUpDown numPort;
